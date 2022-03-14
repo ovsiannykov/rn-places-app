@@ -7,18 +7,27 @@ import {
   TextInput,
   StyleSheet,
 } from "react-native";
+import { useDispatch } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 
 import Colors from "../constants/Colors";
+import * as palcesActions from "../store/places-actions";
 
 const NewPlaceScreen = (props) => {
   const [titleValue, setTitleValue] = useState("");
+
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const titleChangeHandler = (text) => {
     // you could add validation
     setTitleValue(text);
   };
 
-  const savePlaceHandler = () => {};
+  const savePlaceHandler = () => {
+    dispatch(palcesActions.addPlace(titleValue));
+    navigation.goBack();
+  };
 
   return (
     <ScrollView>
