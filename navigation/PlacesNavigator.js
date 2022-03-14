@@ -28,7 +28,13 @@ const PlacesNavigator = () => {
       />
       <Stack.Screen name="NewPlaceScreen" component={NewPlaceScreen} />
       <Stack.Screen name="MapScreen" component={MapScreen} />
-      <Stack.Screen name="PlaceDetailscreen" component={PlaceDetailscreen} />
+      <Stack.Screen
+        name="PlaceDetailscreen"
+        component={PlaceDetailscreen}
+        options={({ route }) => ({
+          title: route.params.placeTitle,
+        })}
+      />
     </Stack.Navigator>
   );
 };
