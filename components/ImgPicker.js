@@ -19,6 +19,7 @@ const ImgPicker = (props) => {
 
     if (!result.cancelled) {
       setImage(result.uri);
+      props.onImageTaken(result.uri);
     } else {
       Alert.alert("Oops...", "Failed to load image");
       setImage(null);
@@ -47,6 +48,7 @@ const ImgPicker = (props) => {
 const styles = StyleSheet.create({
   imagePicker: {
     alignItems: "center",
+    marginBottom: 15,
   },
   imagePreview: {
     width: "100%",

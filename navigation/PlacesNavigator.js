@@ -26,7 +26,11 @@ const PlacesNavigator = () => {
         component={PlacesListScreen}
         options={{ title: "All Places", headerRight: () => <HeaderButton /> }}
       />
-      <Stack.Screen name="NewPlaceScreen" component={NewPlaceScreen} />
+      <Stack.Screen
+        name="NewPlaceScreen"
+        component={NewPlaceScreen}
+        options={{ title: "Add Place" }}
+      />
       <Stack.Screen name="MapScreen" component={MapScreen} />
       <Stack.Screen
         name="PlaceDetailscreen"
