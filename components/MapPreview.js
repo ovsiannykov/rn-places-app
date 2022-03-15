@@ -1,10 +1,15 @@
 import React from "react";
-import { View, Image, StyleSheet, Text } from "react-native";
+import { View, Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 
 import ENV from "../env";
 
 const MapPreview = (props) => {
   let imagePreviewUrl;
+  let adress;
+
+  if (props.adress) {
+    adress = props.adress;
+  }
 
   if (props.location) {
     const loc = props.location;
@@ -13,13 +18,16 @@ const MapPreview = (props) => {
   }
 
   return (
-    <View style={{ ...styles.mapPreview, ...props.style }}>
+    <TouchableOpacity
+      onPress={props.onPress}
+      style={{ ...styles.mapPreview, ...props.style }}
+    >
       {props.location ? (
         <Image style={styles.mapImage} source={{ uri: imagePreviewUrl }} />
       ) : (
         <Text>No location chosen yet!</Text>
       )}
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -27,6 +35,7 @@ const styles = StyleSheet.create({
   mapPreview: {
     justifyContent: "center",
     alignItems: "center",
+    
   },
   mapImage: {
     width: "100%",

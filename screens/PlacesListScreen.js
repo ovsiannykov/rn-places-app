@@ -1,5 +1,12 @@
 import React, { useEffect } from "react";
-import { View, Text, StyleSheet, Platform, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
@@ -17,23 +24,25 @@ const PlacesListScreen = (props) => {
   }, [dispatch]);
 
   return (
-    <FlatList
-      data={places}
-      keyExtractor={(item) => item.id}
-      renderItem={(itemData) => (
-        <PlaceItem
-          image={itemData.item.imageUri}
-          title={itemData.item.title}
-          address={null}
-          onSelect={() => {
-            navigation.navigate("PlaceDetailscreen", {
-              placeTitle: itemData.item.title,
-              placeId: itemData.item.id,
-            });
-          }}
-        />
-      )}
-    />
+    <View>
+      <FlatList
+        data={places}
+        keyExtractor={(item) => item.id}
+        renderItem={(itemData) => (
+          <PlaceItem
+            image={itemData.item.imageUri}
+            title={itemData.item.title}
+            address={null}
+            onSelect={() => {
+              navigation.navigate("PlaceDetailscreen", {
+                placeTitle: itemData.item.title,
+                placeId: itemData.item.id,
+              });
+            }}
+          />
+        )}
+      />
+    </View>
   );
 };
 
