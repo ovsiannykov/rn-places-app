@@ -13,6 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import Colors from "../constants/Colors";
 import * as palcesActions from "../store/places-actions";
 import ImgPicker from "../components/ImgPicker";
+import LocationPicker from "../components/LocationPicker";
 
 const NewPlaceScreen = (props) => {
   const [titleValue, setTitleValue] = useState("");
@@ -45,6 +46,7 @@ const NewPlaceScreen = (props) => {
           value={titleValue}
         />
         <ImgPicker onImageTaken={imageTakeHandler} />
+        <LocationPicker />
         <Button
           title="Save Place"
           color={Colors.primary}
