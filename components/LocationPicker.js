@@ -8,9 +8,9 @@ import {
   StyleSheet,
 } from "react-native";
 import * as Location from "expo-location";
-import * as Permissions from "expo-permissions";
 
 import Colors from "../constants/Colors";
+import MapPreview from "./MapPreview";
 
 const LocationPicker = (props) => {
   const [isFetching, setIsFetching] = useState(false);
@@ -31,34 +31,36 @@ const LocationPicker = (props) => {
 
     let { coords } = await Location.getCurrentPositionAsync();
 
-    setIsFetching(false);
-
     if (coords) {
-      const { latitude, longitude } = coords;
-      let response = await Location.reverseGeocodeAsync({
-        latitude,
-        longitude,
-      });
+      setPickedLocation(coords);
 
-      for (let item of response) {
-        let address = `${item.name}, ${item.street}, ${item.postalCode}, ${item.city}`;
-
-        alert(address);
-      }
+      // const { latitude, longitude } = coords;
+      // let response = await Location.reverseGeocodeAsync({
+      //   latitude,
+      //   longitude,
+      // });
+      //
+      // for (let item of response) {
+      //   let address = `${item.name}, ${item.street}, ${item.postalCode}, ${item.city}`;
+      //   alert(address);
+      // }
     } else {
       Alert.alert("Oops..", "Failed to find location");
     }
+    setIsFetching(false);
   }
 
   return (
     <View style={styles.locationPicker}>
-      <View style={styles.mapPreview}>
-        {isFetching ? (
+      <MapPreview style={styles.mapPreview} location={pickedLocation} />
+      {isFetching ? (
+        <View>
           <ActivityIndicator size="large" color={Colors.primary} />
-        ) : (
-          <Text>No location chosen yet!</Text>
-        )}
-      </View>
+        </View>
+      ) : (
+        <Text></Text>
+      )}
+
       <Button
         title="Get User Location"
         color={Colors.primary}
@@ -78,8 +80,6 @@ const styles = StyleSheet.create({
     height: 150,
     borderColor: "#ccc",
     borderWidth: 1,
-    justifyContent: "center",
-    alignItems: "center",
   },
 });
 
