@@ -6,6 +6,7 @@ import {
   Text,
   TextInput,
   StyleSheet,
+  Alert,
 } from "react-native";
 import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
@@ -27,9 +28,13 @@ const NewPlaceScreen = (props) => {
     setTitleValue(text);
   };
 
-  const savePlaceHandler = () => {
-    dispatch(palcesActions.addPlace(titleValue, selectedImage));
-    navigation.goBack();
+  const savePlaceHandler = (titleValue, selectedImage) => {
+    if (titleValue && selectedImage) {
+      dispatch(palcesActions.addPlace(titleValue, selectedImage));
+      navigation.goBack();
+    } else {
+      Alert.alert("Opps...", "Fill in all the fields!");
+    }
   };
 
   const imageTakeHandler = (imagePath) => {
