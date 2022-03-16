@@ -1,15 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import { useDispatch } from "react-redux";
 
 import Colors from "../constants/Colors";
-import { addLocation } from "../store/location/actions";
 
-const MapScreen = ({ navigation, route }, props) => {
+const MapScreen = ({ navigation }, props) => {
   const [selectedLocation, setSelectedLocation] = useState();
-
-  const dispatch = useDispatch();
 
   const mapRegion = {
     latitude: 37.78,
@@ -35,8 +31,7 @@ const MapScreen = ({ navigation, route }, props) => {
   }
 
   const savePickedLocationHandler = async () => {
-    await dispatch(addLocation(markerCoordinates));
-    navigation.goBack();
+    navigation.navigate("NewPlaceScreen", { markerCoordinates });
   };
 
   // useEffect(() => {

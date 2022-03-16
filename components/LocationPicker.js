@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import * as Location from "expo-location";
 import { useNavigation } from "@react-navigation/native";
-import { useSelector } from "react-redux";
 
 import Colors from "../constants/Colors";
 import MapPreview from "./MapPreview";
@@ -19,11 +18,11 @@ const LocationPicker = (props) => {
   const [pickedLocation, setPickedLocation] = useState();
   const [adress, setAdress] = useState(null);
 
-  const mapPickedLocation = useSelector((state) => state.location.location);
+  const mapPickedLocation = props.mapPickedLocation;
 
   useEffect(() => {
     if (mapPickedLocation) {
-      setPickedLocation(mapPickedLocation);
+      setPickedLocation(mapPickedLocation.markerCoordinates);
     }
   }, [mapPickedLocation]);
 

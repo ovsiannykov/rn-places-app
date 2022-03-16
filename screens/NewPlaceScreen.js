@@ -9,21 +9,25 @@ import {
   Alert,
 } from "react-native";
 import { useDispatch } from "react-redux";
+import { useRoute } from "@react-navigation/native";
 
 import Colors from "../constants/Colors";
 import * as palcesActions from "../store/places-actions";
 import ImgPicker from "../components/ImgPicker";
 import LocationPicker from "../components/LocationPicker";
 
-const NewPlaceScreen = ({ navigation, route }, props) => {
+const NewPlaceScreen = ({ navigation }, props) => {
   const [titleValue, setTitleValue] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
+  const [location, setLocation] = useState(null);
 
-  // useEffect(() => {
-  //   if (?route.params.pickedLocation) {
-  //     mapPickedLocation = route.params.pickedLocation;
-  //   }
-  // }, [route.params?.pickedLocation]);
+  const route = useRoute();
+
+  useEffect(() => {
+    if (route) {
+      setLocation(route.params);
+    }
+  }, [route]);
 
   const dispatch = useDispatch();
 
@@ -55,7 +59,7 @@ const NewPlaceScreen = ({ navigation, route }, props) => {
           value={titleValue}
         />
         <ImgPicker onImageTaken={imageTakeHandler} />
-        <LocationPicker />
+        <LocationPicker mapPickedLocation={location} />
         <Button
           title="Save Place"
           color={Colors.primary}
