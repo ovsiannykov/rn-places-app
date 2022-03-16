@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
 
 import placesReducer from "./store/places-reducer";
+import locationReducer from "./store/location/reducer";
 import PlacesNavigator from "./navigation/PlacesNavigator";
 import { init } from "./helpers/db";
 
@@ -19,6 +20,7 @@ init()
 
 const rootReducer = combineReducers({
   places: placesReducer,
+  location: locationReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

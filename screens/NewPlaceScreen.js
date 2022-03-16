@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ScrollView,
   View,
@@ -9,19 +9,23 @@ import {
   Alert,
 } from "react-native";
 import { useDispatch } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
 
 import Colors from "../constants/Colors";
 import * as palcesActions from "../store/places-actions";
 import ImgPicker from "../components/ImgPicker";
 import LocationPicker from "../components/LocationPicker";
 
-const NewPlaceScreen = (props) => {
+const NewPlaceScreen = ({ navigation, route }, props) => {
   const [titleValue, setTitleValue] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
 
+  // useEffect(() => {
+  //   if (?route.params.pickedLocation) {
+  //     mapPickedLocation = route.params.pickedLocation;
+  //   }
+  // }, [route.params?.pickedLocation]);
+
   const dispatch = useDispatch();
-  const navigation = useNavigation();
 
   const titleChangeHandler = (text) => {
     // you could add validation
