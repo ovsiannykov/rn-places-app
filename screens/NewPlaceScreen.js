@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useRoute } from "@react-navigation/native";
+import * as Location from "expo-location";
 
 import Colors from "../constants/Colors";
 import * as placesActions from "../store/places-actions";
@@ -22,6 +23,25 @@ const NewPlaceScreen = ({ navigation }, props) => {
   const [location, setLocation] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState();
   const receivedLocation = useSelector((state) => state.location.location);
+
+  const adressChecked = async (geo) => {
+    let address;
+
+    if (geo.latitude && geo.longitude) {
+      const { latitude, longitude } = await geo;
+      let response = await Location.reverseGeocodeAsync({
+        latitude,
+        longitude,
+      });
+
+      for (let item of response) {
+        address = `${item.name}, ${item.street},  ${item.city}`;
+      }
+    }
+
+    console.log(address);
+    return address;
+  };
 
   useEffect(() => {
     if (receivedLocation) {
