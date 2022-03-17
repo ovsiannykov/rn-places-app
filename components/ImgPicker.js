@@ -13,6 +13,8 @@ import * as MediaLibrary from "expo-media-library";
 
 import Colors from "../constants/Colors";
 
+const addImage = require("../assets/images/add-image.png");
+
 const ImgPicker = (props) => {
   const [image, setImage] = useState(null);
 
@@ -28,9 +30,6 @@ const ImgPicker = (props) => {
     if (!result.cancelled) {
       setImage(result.uri);
       props.onImageTaken(result.uri);
-    } else {
-      Alert.alert("Oops...", "Failed to load image");
-      setImage(null);
     }
   };
 
@@ -40,7 +39,12 @@ const ImgPicker = (props) => {
         {image ? (
           <Image style={styles.image} source={{ uri: image }} />
         ) : (
-          <Text>No image picked yet</Text>
+          <Image
+            style={styles.addImage}
+            source={{
+              uri: "https://img.icons8.com/officel/2x/fa314a/add-image.png",
+            }}
+          />
         )}
       </TouchableOpacity>
       <Button
@@ -70,6 +74,11 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: "100%",
+    borderRadius: 8,
+  },
+  addImage: {
+    width: "60%",
+    height: 200,
     borderRadius: 8,
   },
 });

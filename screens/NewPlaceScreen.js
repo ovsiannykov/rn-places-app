@@ -24,25 +24,6 @@ const NewPlaceScreen = ({ navigation }, props) => {
   const [selectedLocation, setSelectedLocation] = useState();
   const receivedLocation = useSelector((state) => state.location.location);
 
-  const adressChecked = async (geo) => {
-    let address;
-
-    if (geo.latitude && geo.longitude) {
-      const { latitude, longitude } = await geo;
-      let response = await Location.reverseGeocodeAsync({
-        latitude,
-        longitude,
-      });
-
-      for (let item of response) {
-        address = `${item.name}, ${item.street},  ${item.city}`;
-      }
-    }
-
-    console.log(address);
-    return address;
-  };
-
   useEffect(() => {
     if (receivedLocation) {
       setSelectedLocation(receivedLocation);
@@ -87,6 +68,7 @@ const NewPlaceScreen = ({ navigation }, props) => {
           style={styles.textInput}
           onChangeText={titleChangeHandler}
           value={titleValue}
+          placeholder="Place"
         />
         <ImgPicker onImageTaken={imageTakeHandler} />
         <LocationPicker mapPickedLocation={location} />
