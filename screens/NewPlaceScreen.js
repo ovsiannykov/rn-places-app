@@ -21,18 +21,18 @@ const NewPlaceScreen = ({ navigation }, props) => {
   const [selectedImage, setSelectedImage] = useState("");
   const [location, setLocation] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState();
-  const receivedLocation = useSelector((state) => state.location.location);
+  // const receivedLocation = useSelector((state) => state.location.location);
 
-  useEffect(() => {
-    if (receivedLocation) {
-      setSelectedLocation(receivedLocation);
-    }
-  }, [receivedLocation]);
+  // useEffect(() => {
+  //   if (receivedLocation) {
+  //     setSelectedLocation(receivedLocation);
+  //   }
+  // }, [receivedLocation]);
 
   const route = useRoute();
 
   useEffect(() => {
-    if (route) {
+    if (route && route.params) {
       setLocation(route.params);
     }
   }, [route]);

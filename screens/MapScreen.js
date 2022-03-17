@@ -30,13 +30,9 @@ const MapScreen = ({ navigation }, props) => {
     };
   }
 
-  const savePickedLocationHandler = async () => {
+  const savePickedLocationHandler = () => {
     navigation.navigate("NewPlaceScreen", { markerCoordinates });
   };
-
-  // useEffect(() => {
-  //   savePickedLocationHandler();
-  // }, []);
 
   return (
     <View style={{ height: "100%" }}>

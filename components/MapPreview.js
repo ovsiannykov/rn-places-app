@@ -1,18 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 
 import ENV from "../env";
 
 const MapPreview = (props) => {
   let imagePreviewUrl;
-  let adress;
-
-  if (props.adress) {
-    adress = props.adress;
-  }
+  let loc;
 
   if (props.location) {
-    const loc = props.location;
+    loc = props.location;
 
     imagePreviewUrl = `https://api.mapbox.com/styles/v1/mapbox/light-v10/static/pin-l+ff0f0f(${loc.longitude},${loc.latitude})/${loc.longitude},${loc.latitude},16,0/400x200?before_layer=bridge-major-link-2&access_token=${ENV.mapsApiKey}`;
   }
@@ -35,7 +31,6 @@ const styles = StyleSheet.create({
   mapPreview: {
     justifyContent: "center",
     alignItems: "center",
-    
   },
   mapImage: {
     width: "100%",

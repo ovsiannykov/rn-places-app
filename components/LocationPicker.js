@@ -18,21 +18,22 @@ import { addLocation } from "../store/location/actions";
 const LocationPicker = (props) => {
   const [isFetching, setIsFetching] = useState(false);
   const [pickedLocation, setPickedLocation] = useState();
-  const [adress, setAdress] = useState(null);
 
   const dispatch = useDispatch();
-
+  const navigation = useNavigation();
   const mapPickedLocation = props.mapPickedLocation;
 
   useEffect(() => {
     if (mapPickedLocation) {
       setPickedLocation(mapPickedLocation.markerCoordinates);
+    } else {
+      GetCurrentLocation();
     }
+
+    dispatch(addLocation(pickedLocation));
   }, [mapPickedLocation]);
 
-  const navigation = useNavigation();
-
-  async function GetCurrentLocation() {
+  const GetCurrentLocation = async () => {
     setIsFetching(true);
     let { status } = await Location.requestForegroundPermissionsAsync();
 
@@ -49,41 +50,21 @@ const LocationPicker = (props) => {
 
     if (coords) {
       setPickedLocation(coords);
-
-      // const { latitude, longitude } = coords;
-      // let response = await Location.reverseGeocodeAsync({
-      //   latitude,
-      //   longitude,
-      // });
-
-      // for (let item of response) {
-      //   let address = item.name;
-      //   setAdress(address);
-      // }
     } else {
       Alert.alert("Oops..", "Failed to find location");
     }
     setIsFetching(false);
-  }
-
-  useEffect(() => {
-    GetCurrentLocation();
-  }, []);
-
-  const getLocationHandler = async () => {};
+  };
 
   const pickOnMapHandler = () => {
     navigation.navigate("MapScreen");
   };
-
-  dispatch(addLocation(pickedLocation));
 
   return (
     <View style={styles.locationPicker}>
       <MapPreview
         style={styles.mapPreview}
         location={pickedLocation}
-        adress={adress}
         onPress={pickOnMapHandler}
       />
 
@@ -98,7 +79,7 @@ const LocationPicker = (props) => {
         <Button
           title="Get User Location"
           color={Colors.primary}
-          onPress={getLocationHandler}
+          onPress={GetCurrentLocation}
         />
         <Button
           title="Pick on Map"
