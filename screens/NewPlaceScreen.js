@@ -8,11 +8,11 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRoute } from "@react-navigation/native";
 
 import Colors from "../constants/Colors";
-import * as palcesActions from "../store/places-actions";
+import * as placesActions from "../store/places-actions";
 import ImgPicker from "../components/ImgPicker";
 import LocationPicker from "../components/LocationPicker";
 
@@ -20,6 +20,14 @@ const NewPlaceScreen = ({ navigation }, props) => {
   const [titleValue, setTitleValue] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
   const [location, setLocation] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState();
+  const receivedLocation = useSelector((state) => state.location.location);
+
+  useEffect(() => {
+    if (receivedLocation) {
+      setSelectedLocation(receivedLocation);
+    }
+  }, [receivedLocation]);
 
   const route = useRoute();
 
@@ -36,13 +44,11 @@ const NewPlaceScreen = ({ navigation }, props) => {
     setTitleValue(text);
   };
 
-  const savePlaceHandler = (titleValue, selectedImage) => {
-    if (titleValue && selectedImage) {
-      dispatch(palcesActions.addPlace(titleValue, selectedImage));
-      navigation.goBack();
-    } else {
-      Alert.alert("Opps...", "Fill in all the fields!");
-    }
+  const savePlaceHandler = () => {
+    dispatch(
+      placesActions.addPlace(titleValue, selectedImage, selectedLocation)
+    );
+    navigation.goBack();
   };
 
   const imageTakeHandler = (imagePath) => {

@@ -9,14 +9,18 @@ import {
 } from "react-native";
 import * as Location from "expo-location";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
 
 import Colors from "../constants/Colors";
 import MapPreview from "./MapPreview";
+import { addLocation } from "../store/location/actions";
 
 const LocationPicker = (props) => {
   const [isFetching, setIsFetching] = useState(false);
   const [pickedLocation, setPickedLocation] = useState();
   const [adress, setAdress] = useState(null);
+
+  const dispatch = useDispatch();
 
   const mapPickedLocation = props.mapPickedLocation;
 
@@ -46,16 +50,16 @@ const LocationPicker = (props) => {
     if (coords) {
       setPickedLocation(coords);
 
-      const { latitude, longitude } = coords;
-      let response = await Location.reverseGeocodeAsync({
-        latitude,
-        longitude,
-      });
+      // const { latitude, longitude } = coords;
+      // let response = await Location.reverseGeocodeAsync({
+      //   latitude,
+      //   longitude,
+      // });
 
-      for (let item of response) {
-        let address = item.name;
-        setAdress(address);
-      }
+      // for (let item of response) {
+      //   let address = item.name;
+      //   setAdress(address);
+      // }
     } else {
       Alert.alert("Oops..", "Failed to find location");
     }
@@ -71,6 +75,8 @@ const LocationPicker = (props) => {
   const pickOnMapHandler = () => {
     navigation.navigate("MapScreen");
   };
+
+  dispatch(addLocation(pickedLocation));
 
   return (
     <View style={styles.locationPicker}>
