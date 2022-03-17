@@ -21,13 +21,13 @@ const NewPlaceScreen = ({ navigation }, props) => {
   const [selectedImage, setSelectedImage] = useState("");
   const [location, setLocation] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState();
-  // const receivedLocation = useSelector((state) => state.location.location);
+  const receivedLocation = useSelector((state) => state.location.location);
 
-  // useEffect(() => {
-  //   if (receivedLocation) {
-  //     setSelectedLocation(receivedLocation);
-  //   }
-  // }, [receivedLocation]);
+  useEffect(() => {
+    if (receivedLocation) {
+      setSelectedLocation(receivedLocation);
+    }
+  }, [receivedLocation]);
 
   const route = useRoute();
 
@@ -45,10 +45,14 @@ const NewPlaceScreen = ({ navigation }, props) => {
   };
 
   const savePlaceHandler = () => {
-    dispatch(
-      placesActions.addPlace(titleValue, selectedImage, selectedLocation)
-    );
-    navigation.goBack();
+    if (titleValue && selectedImage && selectedLocation) {
+      dispatch(
+        placesActions.addPlace(titleValue, selectedImage, selectedLocation)
+      );
+      navigation.goBack();
+    } else {
+      Alert.alert("Opps");
+    }
   };
 
   const imageTakeHandler = (imagePath) => {

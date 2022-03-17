@@ -26,11 +26,10 @@ const LocationPicker = (props) => {
   useEffect(() => {
     if (mapPickedLocation) {
       setPickedLocation(mapPickedLocation.markerCoordinates);
+      dispatch(addLocation(pickedLocation));
     } else {
       GetCurrentLocation();
     }
-
-    dispatch(addLocation(pickedLocation));
   }, [mapPickedLocation]);
 
   const GetCurrentLocation = async () => {
@@ -50,6 +49,7 @@ const LocationPicker = (props) => {
 
     if (coords) {
       setPickedLocation(coords);
+      dispatch(addLocation(pickedLocation));
     } else {
       Alert.alert("Oops..", "Failed to find location");
     }

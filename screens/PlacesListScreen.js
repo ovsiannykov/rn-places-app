@@ -1,12 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Platform,
-  FlatList,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleSheet, FlatList } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
@@ -26,6 +19,7 @@ const PlacesListScreen = (props) => {
   return (
     <View>
       <FlatList
+        style={{ height: "100%" }}
         data={places}
         keyExtractor={(item) => item.id}
         renderItem={(itemData) => (
