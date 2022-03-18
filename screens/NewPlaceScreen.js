@@ -16,6 +16,7 @@ import Colors from "../constants/Colors";
 import * as placesActions from "../store/places-actions";
 import ImgPicker from "../components/ImgPicker";
 import LocationPicker from "../components/LocationPicker";
+import { addLocation } from "../store/location/actions";
 
 const NewPlaceScreen = ({ navigation }, props) => {
   const [titleValue, setTitleValue] = useState("");
@@ -45,15 +46,20 @@ const NewPlaceScreen = ({ navigation }, props) => {
     setTitleValue(text);
   };
 
-  const savePlaceHandler = () => {
-    if (titleValue && selectedImage && selectedLocation) {
-      dispatch(
-        placesActions.addPlace(titleValue, selectedImage, selectedLocation)
-      );
-      navigation.goBack();
-    } else {
-      Alert.alert("Opps");
-    }
+  const savePlaceHandler = async () => {
+    // if (titleValue && selectedImage && selectedLocation) {
+    //   dispatch(
+    //     placesActions.addPlace(titleValue, selectedImage, selectedLocation)
+    //   );
+    //   navigation.goBack();
+    // } else {
+    //   Alert.alert("Opps");
+    // }
+    await dispatch(
+      placesActions.addPlace(titleValue, selectedImage, selectedLocation)
+    );
+    await dispatch(addLocation(null));
+    navigation.goBack();
   };
 
   const imageTakeHandler = (imagePath) => {

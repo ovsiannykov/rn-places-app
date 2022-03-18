@@ -18,7 +18,6 @@ import { addLocation } from "../store/location/actions";
 const LocationPicker = (props) => {
   const [isFetching, setIsFetching] = useState(false);
   const [pickedLocation, setPickedLocation] = useState();
-  const [mapLocation, setMapLocation] = useState();
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -26,12 +25,15 @@ const LocationPicker = (props) => {
 
   useEffect(() => {
     if (mapPickedLocation) {
-      setMapLocation(mapPickedLocation.markerCoordinates);
+      setPickedLocation(mapPickedLocation.markerCoordinates);
+      //dispatch(addLocation(pickedLocation));
     }
   }, [mapPickedLocation]);
 
   useEffect(() => {
     GetCurrentLocation();
+    let x = GetCurrentLocation();
+    console.log(x);
   }, []);
 
   const GetCurrentLocation = async () => {
@@ -51,6 +53,8 @@ const LocationPicker = (props) => {
 
     if (coords) {
       setPickedLocation(coords);
+      //dispatch(addLocation(pickedLocation));
+      //return coords;
     } else {
       Alert.alert("Oops..", "Failed to find location");
     }
@@ -61,19 +65,11 @@ const LocationPicker = (props) => {
     navigation.navigate("MapScreen", { initialLocation: pickedLocation });
   };
 
-  useEffect(() => {
-    if (mapLocation == null) {
-      dispatch(addLocation(pickedLocation));
-    } else {
-      dispatch(addLocation(mapLocation));
-    }
-  }, [mapLocation]);
-
   return (
     <View style={styles.locationPicker}>
       <MapPreview
         style={styles.mapPreview}
-        location={mapLocation == null ? pickedLocation : mapLocation}
+        location={pickedLocation}
         onPress={pickOnMapHandler}
       />
 
@@ -88,11 +84,7 @@ const LocationPicker = (props) => {
         <Button
           title="Get User Location"
           color={Colors.primary}
-          onPress={async () => {
-            await dispatch(addLocation(null));
-            setMapLocation(null);
-            await GetCurrentLocation();
-          }}
+          onPress={GetCurrentLocation}
         />
         <Button
           title="Pick on Map"

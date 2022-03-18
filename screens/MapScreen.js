@@ -2,13 +2,17 @@ import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { useRoute } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
 
 import Colors from "../constants/Colors";
+import { addLocation } from "../store/location/actions";
 
 const MapScreen = ({ navigation }, props) => {
   const [selectedLocation, setSelectedLocation] = useState(initialLocation);
   const [initialLocation, setInitialLocation] = useState();
   const [readonly, setReadonly] = useState(false);
+
+  const dispatch = useDispatch();
 
   const route = useRoute();
 
@@ -47,6 +51,7 @@ const MapScreen = ({ navigation }, props) => {
 
   const savePickedLocationHandler = () => {
     navigation.navigate("NewPlaceScreen", { markerCoordinates });
+    dispatch(addLocation(markerCoordinates));
   };
 
   return (
