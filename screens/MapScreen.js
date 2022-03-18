@@ -59,6 +59,9 @@ const MapScreen = ({ navigation }, props) => {
         {markerCoordinates && (
           <Marker title="Picked Location" coordinate={markerCoordinates} />
         )}
+        {readonly ? (
+          <Marker title="Picked Location" coordinate={initialLocation} />
+        ) : null}
       </MapView>
 
       {!readonly ? (

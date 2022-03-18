@@ -59,7 +59,7 @@ const LocationPicker = (props) => {
   };
 
   const pickOnMapHandler = () => {
-    navigation.navigate("MapScreen");
+    navigation.navigate("MapScreen", { initialLocation: pickedLocation });
   };
 
   return (
