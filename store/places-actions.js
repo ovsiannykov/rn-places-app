@@ -1,8 +1,6 @@
 import * as FileSystem from "expo-file-system";
 import * as Location from "expo-location";
 
-import ENV from "../env";
-
 import { insertPlace, fetchPlaces } from "../helpers/db";
 
 export const ADD_PLACE = "ADD_PLACE";

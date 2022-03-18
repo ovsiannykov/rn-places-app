@@ -77,8 +77,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   addImage: {
-    width: "60%",
-    height: 200,
+    width: "64%",
+    height: 210,
     borderRadius: 8,
   },
 });

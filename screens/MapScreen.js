@@ -1,20 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import MapView, { Marker } from "react-native-maps";
+import { useRoute } from "@react-navigation/native";
 
 import Colors from "../constants/Colors";
 
 const MapScreen = ({ navigation }, props) => {
-  const [selectedLocation, setSelectedLocation] = useState();
+  const [selectedLocation, setSelectedLocation] = useState(initialLocation);
+  const [initialLocation, setInitialLocation] = useState();
+  const [readonly, setReadonly] = useState(false);
+
+  const route = useRoute();
+
+  useEffect(() => {
+    if (route && route.params) {
+      setInitialLocation(route.params.initialLocation);
+      setReadonly(route.params.readonly);
+    }
+  }, [route]);
 
   const mapRegion = {
-    latitude: 37.78,
-    longitude: -122.43,
+    latitude: initialLocation ? initialLocation.latitude : 37.78,
+    longitude: initialLocation ? initialLocation.longitude : -122.43,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   };
 
   const selectLocationHandler = (event) => {
+    if (readonly) {
+      return;
+    }
     setSelectedLocation({
       lat: event.nativeEvent.coordinate.latitude,
       lng: event.nativeEvent.coordinate.longitude,
@@ -45,12 +60,15 @@ const MapScreen = ({ navigation }, props) => {
           <Marker title="Picked Location" coordinate={markerCoordinates} />
         )}
       </MapView>
-      <TouchableOpacity
-        style={styles.saveContainer}
-        onPress={savePickedLocationHandler}
-      >
-        <Text style={styles.saveText}>SAVE</Text>
-      </TouchableOpacity>
+
+      {!readonly ? (
+        <TouchableOpacity
+          style={styles.saveContainer}
+          onPress={savePickedLocationHandler}
+        >
+          <Text style={styles.saveText}>SAVE</Text>
+        </TouchableOpacity>
+      ) : null}
     </View>
   );
 };
