@@ -1,14 +1,15 @@
 {
   "expo": {
-    "name": "rn-tutorial-app",
-    "slug": "rn-tutorial-app",
+    "name": "Places App",
+    "description": "The project was developed as part of the course 'React Native - The Practical Guide'",
+    "slug": "places-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#fff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -17,7 +18,7 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false
     },
     "android": {
       "adaptiveIcon": {
