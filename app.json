@@ -18,7 +18,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": false
+      "supportsTablet": false,
+      "bundleIdentifier": "com.ovsiannykov.places-app"
     },
     "android": {
       "adaptiveIcon": {
