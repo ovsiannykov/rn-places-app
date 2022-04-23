@@ -48,17 +48,17 @@ const NewPlaceScreen = ({ navigation }, props) => {
 
   const savePlaceHandler = async () => {
     // if (titleValue && selectedImage && selectedLocation) {
-    //   dispatch(
+    //   await dispatch(
     //     placesActions.addPlace(titleValue, selectedImage, selectedLocation)
     //   );
     //   navigation.goBack();
     // } else {
     //   Alert.alert("Opps");
     // }
+
     await dispatch(
       placesActions.addPlace(titleValue, selectedImage, selectedLocation)
     );
-    await dispatch(addLocation(null));
     navigation.goBack();
   };
 
@@ -74,12 +74,12 @@ const NewPlaceScreen = ({ navigation }, props) => {
           style={styles.textInput}
           onChangeText={titleChangeHandler}
           value={titleValue}
-          placeholder="Place"
+          placeholder='Place'
         />
         <ImgPicker onImageTaken={imageTakeHandler} />
         <LocationPicker mapPickedLocation={location} />
         <Button
-          title="Save Place"
+          title='Save Place'
           color={Colors.primary}
           onPress={savePlaceHandler}
         />

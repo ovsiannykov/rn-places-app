@@ -33,7 +33,7 @@ export const addPlace = (title, image, location) => {
       const dbResult = await insertPlace(
         title,
         newPath,
-        address,
+        address ? address : "Null",
         location.latitude,
         location.longitude
       );
@@ -44,7 +44,7 @@ export const addPlace = (title, image, location) => {
           id: dbResult.insertId,
           title: title,
           image: newPath,
-          address: address,
+          address: address ? address : "Null",
           coords: {
             lat: location.latitude,
             lng: location.longitude,

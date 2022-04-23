@@ -24,8 +24,8 @@ const MapScreen = ({ navigation }, props) => {
   }, [route]);
 
   const mapRegion = {
-    latitude: initialLocation ? initialLocation.latitude : 37.78,
-    longitude: initialLocation ? initialLocation.longitude : -122.43,
+    latitude: initialLocation ? initialLocation.latitude : 50.450001,
+    longitude: initialLocation ? initialLocation.longitude : 30.523333,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   };
@@ -46,6 +46,8 @@ const MapScreen = ({ navigation }, props) => {
     markerCoordinates = {
       latitude: selectedLocation.lat,
       longitude: selectedLocation.lng,
+      latitudeDelta: 0.001332,
+      longitudeDelta: 0.001331,
     };
   }
 
@@ -62,10 +64,10 @@ const MapScreen = ({ navigation }, props) => {
         onPress={selectLocationHandler}
       >
         {markerCoordinates && (
-          <Marker title="Picked Location" coordinate={markerCoordinates} />
+          <Marker title='Picked Location' coordinate={markerCoordinates} />
         )}
         {readonly ? (
-          <Marker title="Picked Location" coordinate={initialLocation} />
+          <Marker title='Picked Location' coordinate={initialLocation} />
         ) : null}
       </MapView>
 
